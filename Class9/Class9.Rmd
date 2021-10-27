@@ -132,5 +132,13 @@ summary(wisc.pr)
 We need The first 5 PCs to get to at least 80%
 
 
+*Hierarchical clustering*
 
+```{r}
+data.scaled <- scale(wisc.data)
+data.dist <- dist(data.scaled)
+wisc.hclust <- hclust(data.dist)
+plot(wisc.hclust) +
+abline(h=19, col="red", lty=2)
+```
 
