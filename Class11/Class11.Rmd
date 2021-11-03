@@ -1,0 +1,53 @@
+---
+title: "Class11"
+author: "Andres Rivero"
+date: "11/3/2021"
+output: 
+github_document: default
+---
+
+```{r}
+db <- read.csv("Data Export Summary.csv")
+db
+```
+
+```{r}
+round((sum(db$X.ray)/sum(db$Total))*100, 2)
+
+```
+
+```{r}
+round((sum(db$EM)/sum(db$Total))*100, 2)
+```
+
+**Q1** 87.53% and 4.95% respectively
+
+```{r}
+round(db$Total[1]/sum(db$Total) *100, 2)
+```
+
+**Q2** 87.35%
+
+![](myvmdpic.png)
+
+# Using Bio3D in R for structural bioinformatics
+
+```{r}
+# library(bio3d)
+pdb <- read.pdb("1hel")
+pdb
+```
+```{r}
+pdb$atom
+```
+
+Do a Normal mode analysis (NMA) a prediction of the conformational variability and intrinsic dynamics of this protein.
+```{r}
+m <- nma(pdb)
+plot(m)
+```
+```{r}
+mktrj(m, file="nma.pdb")
+
+```
+
