@@ -5,7 +5,7 @@ Welcome! Here is most of my work for this class!
 
 
 
-Class 04: https://github.com/ARiveroGamez/BGGN213/tree/main/Class04
+Class 04: (https://github.com/ARiveroGamez/BGGN213/tree/main/Class04)
 
 
 Class 05: https://github.com/ARiveroGamez/BGGN213/tree/main/Class05
