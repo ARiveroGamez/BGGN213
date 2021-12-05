@@ -1,0 +1,169 @@
+---
+title: "Halloween Candy"
+author: "Andres Rivero"
+date: "10/29/2021"
+output: pdf_document
+---
+```{r}
+candy_file <- "candy-data.txt"
+candy = read.csv(candy_file, row.names=1)
+head(candy)
+```
+
+```{r}
+dim(candy)
+```
+
+**Q1**
+85 different types of candy
+
+
+```{r}
+sum(candy$fruity)
+```
+**Q2**
+38 of them
+
+
+
+```{r}
+candy["Kit Kat", ]$winpercent
+```
+**Q3**
+Kit Kat, 76%
+
+**Q4**
+76%
+
+**Q5**
+```{r}
+candy["Tootsie Roll Snack Bars", ]$winpercent
+```
+49%
+
+```{r}
+#install.packages("skimr")
+#library("skimr")
+```
+```{r}
+#skim(candy)
+```
+**Q6**
+Yes, the histogram column for example
+
+
+**Q7**
+0 means it doesn't have it or is not considered to be chocolate candy, and 1 means it is considered to have chocolate.
+
+
+**Q8**
+```{r}
+hist(candy$winpercent)
+```
+**Q9**
+No it isn't.
+
+**Q10**
+Below
+
+**Q11**
+```{r}
+chocolate <- candy[as.logical(candy$chocolate),]$winpercent
+mean(chocolate)
+```
+```{r}
+fruity <- candy[as.logical(candy$fruity),]$winpercent
+mean(fruity)
+```
+Chocolate is higher
+
+**Q12**
+```{r}
+t.test(chocolate, fruity)
+```
+
+**Q13**
+```{r}
+head(candy[order(candy$winpercent),], n=5)
+```
+
+**Q14**
+```{r}
+tail(candy[order(candy$winpercent),], n=5)
+```
+
+**Q15**
+```{r}
+library(ggplot2)
+
+ggplot(candy) + 
+  aes(winpercent, rownames(candy)) +
+  geom_col()
+```
+**Q6**
+
+```{r}
+library(ggplot2)
+
+ggplot(candy) + 
+  aes(winpercent, reorder(row.names(candy), winpercent)) +
+  geom_col()
+```
+
+
+```{r}
+my_cols=rep("black", nrow(candy))
+my_cols[as.logical(candy$chocolate)] = "chocolate"
+my_cols[as.logical(candy$bar)] = "brown"
+my_cols[as.logical(candy$fruity)] = "pink"
+```
+
+```{r}
+ggplot(candy) + 
+  aes(winpercent, reorder(rownames(candy),winpercent)) +
+  geom_col(fill=my_cols) 
+```
+**Q17**
+Charleston Chew
+
+**Q18**
+Starburst
+
+**Q19**
+
+#install.packages("ggrepel")
+#library("ggrepel")
+
+#ggplot(candy) +
+  #aes(winpercent, pricepercent, label=rownames(candy)) +
+  #geom_point(col=my_cols) + 
+  #geom_text_repel(col=my_cols, size=3.3, max.overlaps = 5)
+
+Reeses Miniatures
+
+
+**Q20**
+```{r}
+ord <- order(candy$pricepercent, decreasing = TRUE)
+head( candy[ord,c(11,12)], n=5 )
+```
+
+
+```{r}
+#install.packages("corrplot")
+#library(corrplot)
+#cij <- cor(candy)
+#corrplot(cij)
+```
+**Q22**
+Chocolate and Fruity
+
+**Q23**
+Chocolate and Bars
+
+
+# Principle Component Analysis
+```{r}
+pca <- prcomp(candy, scale=TRUE)
+summary(pca)
+```

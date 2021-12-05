@@ -1,0 +1,48 @@
+---
+title: "Project"
+author: "Andres Rivero"
+date: "11/27/2021"
+output: html_document
+---
+
+```{r}
+library(bio3d)
+```
+
+```{r}
+alignment <- read.fasta("Alignment")
+```
+
+```{r}
+con <- conserv(alignment)
+```
+
+```{r}
+print(con)
+```
+
+```{r}
+plot(con, type = "h", xlab= "Alignment position", ylab = "Conservation score")
+```
+
+```{r}
+inds <- order(con, decreasing=TRUE)
+head(con[inds])
+```
+
+```{r}
+positions <- data.frame(pos=1:length(con), aa=alignment$ali[1,],score=con)
+head(positions)
+```
+
+```{r}
+head(positions[inds,])
+```
+
+```{r}
+library(pheatmap)
+```
+```{r}
+ide <- seqidentity(alignment)
+heatmap((1-ide), cexRow = .8, cexCol = .8, margins= c(8, 8))
+```

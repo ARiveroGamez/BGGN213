@@ -1,0 +1,42 @@
+---
+title: "Class19"
+author: "Andres Rivero"
+date: "12/2/2021"
+output: pdf_document
+---
+
+***Reading the dowloaded file into R***
+```{r}
+mxl <- read.table("file.txt")
+head(mxl)
+```
+***Q13***
+
+```{r}
+table(mxl$geno)
+```
+
+```{r}
+table(mxl$geno)/nrow(mxl)*100
+```
+
+```{r}
+graph <- boxplot(mxl$exp~mxl$geno, data=mxl)
+```
+Median for each genotype correspond to the black line in each box:
+
+```{r}
+print(graph$stats)
+```
+
+Medians=
+
+A/A: 31.24847 ; A/G: 25.06486 ; G/G: 20.07363
+
+***Q14***
+```{r}
+library(ggplot2)
+
+ggplot(mxl) + aes(x=geno, y= exp, fill=geno) + geom_boxplot(notch=TRUE)
+```
+
