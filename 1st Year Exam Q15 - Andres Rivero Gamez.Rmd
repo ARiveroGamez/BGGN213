@@ -1,0 +1,52 @@
+---
+title: "1st Year exam - Andres Rivero Gamez"
+author: "Andres Rivero Gamez"
+date: '2022-06-13'
+output: pdf_document
+---
+
+***Name: Andres Rivero Gamez***
+
+
+***PID: A59010594***
+
+
+
+***First, uploading the packages that we will need for this.***
+```{r}
+library(ggplot2)
+library(lubridate)
+library(dplyr)
+```
+
+***Then, reading the information I downloaded from the website onto R.***
+```{r}
+CovidData<-read.csv("covid19.csv")
+```
+
+***Using the lubridate package to transform the date column into the right format.***
+
+```{r}
+CovidData$date<-ymd(CovidData$date)
+
+
+```
+
+***Deleting the "Total" values from the data frame.***
+```{r}
+CovidData1<- CovidData[CovidData$variant_name !="Total", ]
+```
+
+***Plotting the data.***
+
+***(And spending more time than I want to admit making it look exactly like the exam page one)***
+```{r}
+ggplot(data = CovidData1) + aes(x = date, y= percentage, col=variant_name) + 
+  ggtitle("Covid-19 Variants in California") + 
+  labs(x="", y="Percentage of sequenced specimenes", 
+       caption = "Data source: <https://www.cdph.ca.gov>")+
+  scale_x_date(breaks= "months", date_labels = "%b %Y") + theme_bw() + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1),legend.title=element_blank()) + 
+  geom_line() + geom_point(size=.1)
+```
+
